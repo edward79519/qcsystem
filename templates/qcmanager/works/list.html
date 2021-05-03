@@ -1,0 +1,156 @@
+{% extends 'frame/base.html' %}
+
+{% block title %}Inaenergy{% endblock %}
+{% block content %}
+
+    <section id="title">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1 class="mt-5">02 - 支架-模組-線槽</h1>
+                    <p>上次更新: 2021-02-01 15:00, 更新人：徐郁鈞</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="detail">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h3>工程分類資料</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h5 class="font-weight-bold">專案名稱：</h5>
+                </div>
+                <div class="col-2"><P>林邊一期</P></div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h5 class="font-weight-bold">地點：</h5>
+                </div>
+                <div class="col-2">屏東縣林邊鄉</div>
+                <div class="col-2">
+                    <h5 class="font-weight-bold">地段地號：</h5>
+                </div>
+                <div class="col-2">
+                    <p>......</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h5 class="font-weight-bold">分類負責人：</h5>
+                </div>
+                <div class="col-2">
+                    <p>王曉明</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h5 class="font-weight-bold">開始時間：</h5>
+                </div>
+                <div class="col-2">
+                    <p>2020年01月20日</p>
+                </div>
+                <div class="col-2">
+                    <h5 class="font-weight-bold">預計結束時間：</h5>
+                </div>
+                <div class="col-2">
+                    <p>2021年01月20日</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="works_list">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h3>自主檢查項目</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="table-responsive-sm">
+                        <table class="table table-hover text-center">
+                            <thead>
+                                <tr>
+                                    <th scope="col">分類項目</th>
+                                    <th scope="col">檢查時機</th>
+                                    <th scope="col">負責人</th>
+                                    <th scope="col">狀態</th>
+                                    <th scope="col">進度</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row" rowspan="3">支架</th>
+                                    <td><a href="{% url 'Arng_list' %}">材料進場</a></td>
+                                    <td>徐郁鈞</td>
+                                    <td>進行中</td>
+                                    <td>20%</td>
+                                </tr>
+                                <tr>
+                                    <td>支架施作/完工檢查</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>缺失複查/定期檢查</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" rowspan="3">模組</th>
+                                    <td>材料進場</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>安裝施作/完工檢查</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>缺失複查/定期檢查</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" rowspan="2">基樁</th>
+                                    <td>安裝施作/完工檢查</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>缺失檢查/定期檢查</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">螺絲扭力</th>
+                                    <td>螺絲扭力檢查</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <a role="button" class="btn btn-primary" href="#">新增</a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

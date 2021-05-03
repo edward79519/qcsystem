@@ -1,0 +1,216 @@
+{% extends 'frame/base.html' %}
+
+{% block title %}Inaenergy{% endblock %}
+{% block content %}
+
+    <section id="title">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1 class="mt-5">支架自主檢查表(材料進場)</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="detail">
+        <div class="container">
+            <form method="POST" action="">
+                <div class="form-row">
+                    <div class="form-group col-6">
+                        <label for="prog_name">案場名稱:</label>
+                        <input type="text" class="form-control" id="prog_name" value="林邊一期" disabled>
+                    </div>
+                    <div class="form-group col-3">
+                        <label for="loc_area">地段:</label>
+                        <select id="loc_area" class="form-control">
+                            <option selected>鎮安段</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-3">
+                        <label for="loc_num">地號:</label>
+                        <select id="loc_num" class="form-control">
+                            <option>1027</option>
+                            <option>1044</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-3">
+                        <label for="user">檢查人:</label>
+                        <select id="user" class="form-control">
+                            <option>徐郁鈞</option>
+                            <option>王小明</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-3">
+                        <label for="check_time">檢查時間:</label>
+                        <input type="date" class="form-control" id="check_time">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-3">
+                        <label for="check_cnt">檢查數量:</label>
+                        <input type="number" class="form-control" id="check_cnt" max="100">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-3">
+                        <label for="comp">承攬廠商:</label>
+                        <select id="comp" class="form-control">
+                            <option>廠商a</option>
+                            <option>廠商b</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-3">
+                        <label for="comp_contact">廠商負責人:</label>
+                        <select id="comp_contact" class="form-control">
+                            <option>人員A</option>
+                            <option>人員B</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-12">
+                        <h3 class="mt-5">檢查項目</h3>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-12">
+                        <h4>1. 支架</h4>
+                    </div>
+                    <div class="form-group col-12">
+                        <fieldset class="form-group">
+                            <div class="row">
+                                <legend class="col-form-label col-sm-12 pt-0 font-weight-bold">Q1. 支架材質出廠證明是否屬實？</legend>
+                                <div class="col-sm-12"><small class="form-text text-muted">與廠商提供之模組支架出廠證明對照</small></div>
+                                <div class="col-sm-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="q1-1" id="gridRadios1" value="option1">
+                                        <label class="form-check-label" for="gridRadios1">
+                                        合格
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="q1-1" id="gridRadios2" value="option2">
+                                        <label class="form-check-label" for="gridRadios2">
+                                        不合格
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <div class="row">
+                                <legend class="col-form-label col-sm-12 pt-0 font-weight-bold">Q2. 支架、組件外觀是否毀損？</legend>
+
+                                <div class="col-sm-12">
+
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="q1-2" id="gridRadios1" value="option1">
+                                        <label class="form-check-label" for="gridRadios1">
+                                        合格
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="q1-2" id="gridRadios2" value="option2">
+                                        <label class="form-check-label" for="gridRadios2">
+                                        不合格
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <div class="row">
+                                <legend class="col-form-label col-sm-12 pt-0 font-weight-bold">Q3. 支架組件有無生鏽情形</legend>
+                                <div class="col-sm-12"><small class="form-text text-muted">如有需除繡補漆或更換新品</small></div>
+                                <div class="col-sm-12">
+
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="q1-3" id="gridRadios1" value="option1">
+                                        <label class="form-check-label" for="gridRadios1">
+                                        合格
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="q1-3" id="gridRadios2" value="option2">
+                                        <label class="form-check-label" for="gridRadios2">
+                                        不合格
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-12">
+                        <h4>2. 檁托/檁條</h4>
+                    </div>
+                    <div class="form-group col-12">
+                        <fieldset class="form-group">
+                            <div class="row">
+                                <legend class="col-form-label col-sm-12 pt-0 font-weight-bold">Q2-1. 檁托/檁條是否生銹？</legend>
+                                <div class="col-sm-12"><small class="form-text text-muted">如有需除繡補漆或更換新品</small></div>
+                                <div class="col-sm-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="q1-1" id="gridRadios1" value="option1">
+                                        <label class="form-check-label" for="gridRadios1">
+                                        合格
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="q1-1" id="gridRadios2" value="option2">
+                                        <label class="form-check-label" for="gridRadios2">
+                                        不合格
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <div class="row">
+                                <legend class="col-form-label col-sm-12 pt-0 font-weight-bold">Q2-1. 檁托/檁條是否生銹？</legend>
+                                <div class="col-sm-12"><small class="form-text text-muted">如有需除繡補漆或更換新品</small></div>
+                                <div class="col-sm-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="q2-1" id="gridRadios1" value="option1">
+                                        <label class="form-check-label" for="gridRadios1">
+                                        合格
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="q2-1" id="gridRadios2" value="option2">
+                                        <label class="form-check-label" for="gridRadios2">
+                                        不合格
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <div class="row">
+                                <legend class="col-form-label col-sm-12 pt-0 font-weight-bold">Q2-2. 檁條C鋼是否明顯變形？</legend>
+                                <div class="col-sm-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="q2-1" id="gridRadios1" value="option1">
+                                        <label class="form-check-label" for="gridRadios1">
+                                        合格
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="q2-1" id="gridRadios2" value="option2">
+                                        <label class="form-check-label" for="gridRadios2">
+                                        不合格
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">送出</button>
+            </form>
+        </div>
+    </section>
+{% endblock %}

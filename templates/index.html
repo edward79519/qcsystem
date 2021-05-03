@@ -1,0 +1,13 @@
+{% extends 'frame/base.html' %}
+
+{% block title %}Inaenergy{% endblock %}
+{% block content %}
+<div class="container">
+    <h1 class="mt-5">歡迎進入寶晶能源庫_工程品管系統!</h1>
+    {% if request.user.is_authenticated %}
+        <p>{{request.user}} 您已經登入系統，依照選單進行工作。</p>
+    {% else %}
+        <p>您未登入，點選 <a href="{%  url 'Login' %}">登入</a> 以進一步操作。</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,124 @@
+{% extends 'frame/base.html' %}
+
+{% block title %}Inaenergy{% endblock %}
+{% block content %}
+
+    <section id="title">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1 class="mt-5">支架自主檢查(材料進場)</h1>
+                    <p>上次更新: 2021-02-01 15:00, 更新人：徐郁鈞</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="detail">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h3>自主檢查詳細資料</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h5 class="font-weight-bold">專案名稱：</h5>
+                </div>
+                <div class="col-2"><P>林邊一期</P></div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h5 class="font-weight-bold">地點：</h5>
+                </div>
+                <div class="col-2">屏東縣林邊鄉</div>
+                <div class="col-2">
+                    <h5 class="font-weight-bold">地段地號：</h5>
+                </div>
+                <div class="col-2">
+                    <p>......</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h5 class="font-weight-bold">自主檢查負責人：</h5>
+                </div>
+                <div class="col-2">
+                    <p>王曉明</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h5 class="font-weight-bold">完成(/總)數量</h5>
+                </div>
+                <div class="col-2">
+                    <p><span class="alert-danger">12</span>(/100)</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h5 class="font-weight-bold">開始時間：</h5>
+                </div>
+                <div class="col-2">
+                    <p>2020年01月20日</p>
+                </div>
+                <div class="col-2">
+                    <h5 class="font-weight-bold">預計結束時間：</h5>
+                </div>
+                <div class="col-2">
+                    <p>2021年01月20日</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="works_list">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h3>自主檢查項目</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="table-responsive-sm">
+                        <table class="table table-hover text-center">
+                            <thead>
+                                <tr>
+                                    <th scope="col">操作</th>
+                                    <th scope="col">表單編號</th>
+                                    <th scope="col">檢驗日期</th>
+                                    <th scope="col">完成日期</th>
+                                    <th scope="col">檢查人</th>
+                                    <th scope="col">承攬廠商</th>
+                                    <th scope="col">廠商負責人</th>
+                                    <th scope="col">檢查數量</th>
+                                    <th scope="col">完成數量</th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td>XXXXXXXXXX</td>
+                                    <td>2021,01,10</td>
+                                    <td>2021,01,10</td>
+                                    <td>人員A</td>
+                                    <td>廠商A</td>
+                                    <td>人員B</td>
+                                    <td>20</td>
+                                    <td>12</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <a role="button" class="btn btn-primary" href="{% url 'Arng_add' %}">新增</a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

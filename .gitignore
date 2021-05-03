@@ -1,0 +1,4 @@
+.idea
+__pycache__
+qcsystem/settings.py
+*.sqlite3

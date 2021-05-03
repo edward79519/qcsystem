@@ -1,0 +1,20 @@
+{% extends 'frame/base.html' %}
+
+{% block title %}使用者資訊 - Inaenergy{% endblock %}
+{% block content %}
+  <section id="banner">
+    <div class="container">
+      <h1 class="mt-5">更改使用者資料 - {{ user.get_username }}</h1>
+    </div>
+  </section>
+  <section id="content">
+    <div class="container">
+      <form action="" method="post">
+        {% csrf_token %}
+        {{ user_form }}
+        {{ prof_form }}
+        <button class="btn btn-primary" type="submit">儲存</button>
+      </form>
+    </div>
+  </section>
+{% endblock %}
