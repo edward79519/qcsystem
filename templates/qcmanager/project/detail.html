@@ -1,0 +1,158 @@
+{% extends 'frame/base.html' %}
+
+{% block title %}Inaenergy{% endblock %}
+{% block content %}
+
+    <section id="title">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1 class="mt-5">{{ proj.psn }}-{{ proj.pname }}</h1>
+                    <p class="text-right">上次更新: {{ proj.pupdatetime }}, 更新人：{{ proj.peditor.get_full_name }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="detail">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h3>專案資料</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h5 class="font-weight-bold">編號：</h5>
+                </div>
+                <div class="col-2"><P>{{ proj.psn }}</P></div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h5 class="font-weight-bold">地點：</h5>
+                </div>
+                <div class="col-2">{{ proj.ploc_county }}-{{ proj.ploc_area }}</div>
+                <div class="col-2">
+                    <h5 class="font-weight-bold">地段地號：</h5>
+                </div>
+                <div class="col-2">
+                    <p>{{ proj.ploc_secnum_list }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h5 class="font-weight-bold">負責人：</h5>
+                </div>
+                <div class="col-2">
+                    <p>{{ proj.psponsor.get_full_name }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h5 class="font-weight-bold">開始時間：</h5>
+                </div>
+                <div class="col-2">
+                    <p>{{ proj.pstatrtime }}</p>
+                </div>
+                <div class="col-2">
+                    <h5 class="font-weight-bold">預計結束時間：</h5>
+                </div>
+                <div class="col-2">
+                    <p>{{ proj.pendtime }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="cate_list">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h3>工程項目</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="table-responsive-sm">
+                        <table class="table table-hover ">
+                            <thead>
+                                <tr>
+                                    <th scope="col">編號</th>
+                                    <th scope="col">名稱</th>
+                                    <th scope="col">負責人</th>
+                                    <th scope="col">開始時間</th>
+                                    <th scope="col">預計結束時間</th>
+                                    <th scope="col">狀態</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for cate in cate_list %}
+                                <tr>
+                                    <td>{{ cate.csn }}</td>
+                                    <td><a href="{% url 'Cate_detail' cate.id %}">{{ cate.cname }}</a></td>
+                                    <td>{{ cate.csponsor }}</td>
+                                    <td>{{ cate.cstatrtime }}</td>
+                                    <td>{{ cate.cendtime }}</td>
+                                </tr>
+                                {% empty %}
+                                {% endfor %}
+
+                                <tr>
+                                    <td>01</td>
+                                    <td>整地基樁</td>
+                                    <td>蘇俊同</td>
+                                    <td>2020年01月20日</td>
+                                    <td>2020年01月20日</td>
+                                    <td>已完成</td>
+                                </tr>
+                                <tr>
+                                    <td>02</td>
+                                    <td><a href="{% url 'Work_list' %}">支架-模組-線槽</a></td>
+                                    <td>李芊</td>
+                                    <td></td>
+                                    <td>2020年01月20日</td>
+                                    <td>進行中</td>
+                                </tr>
+                                <tr>
+                                    <td>03</td>
+                                    <td>DC BOX-INV-AC PANEL</td>
+                                    <td>周承咸</td>
+                                    <td>2020年01月20日</td>
+                                    <td>2020年01月20日</td>
+                                    <td>進行中</td>
+                                </tr>
+                                <tr>
+                                    <td>04</td>
+                                    <td>AC PANEL-TR-RMU</td>
+                                    <td>周承咸</td>
+                                    <td>2020年01月20日</td>
+                                    <td>2020年01月20日</td>
+                                    <td>未開始</td>
+                                </tr>
+                                <tr>
+                                    <td>05</td>
+                                    <td>接地&避雷系統</td>
+                                    <td>唐中浩</td>
+                                    <td>2020年01月20日</td>
+                                    <td>2020年01月20日</td>
+                                    <td>未開始</td>
+                                </tr>
+                                <tr>
+                                    <td>06</td>
+                                    <td>通訊監控</td>
+                                    <td>蘇俊同</td>
+                                    <td>2020年01月20日</td>
+                                    <td>2020年01月20日</td>
+                                    <td>未開始</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <a role="button" class="btn btn-primary" href="#">新增</a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
