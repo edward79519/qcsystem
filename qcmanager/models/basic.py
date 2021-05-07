@@ -20,10 +20,25 @@ class Project(models.Model):
         return self.psn + self.pname
 
 
+class ProjCateSelect(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
+class SubCateSelect(models.Model):
+    prntcat = models.ForeignKey(ProjCateSelect, on_delete=models.PROTECT, related_name='parent_cat')
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
 class ProjCategory(models.Model):
     csn = models.CharField(max_length=4)
     cproj = models.ForeignKey(Project, on_delete=models.PROTECT, related_name='cate_proj')
-    cname = models.CharField(max_length=100)
+    cname = models.ForeignKey(ProjCateSelect, on_delete=models.PROTECT, related_name='cat_select_name')
     csponsor = models.ForeignKey(User, on_delete=models.PROTECT, related_name='cate_sponsor')
     cstatrtime = models.DateField()
     cendtime = models.DateField(null=True, blank=True)
@@ -32,7 +47,7 @@ class ProjCategory(models.Model):
     ceditor = models.ForeignKey(User, on_delete=models.PROTECT, related_name='cate_editor')
 
     def __str__(self):
-        return self.csn + self.cname
+        return self.csn + self.cname.name
 
 
 class Company(models.Model):
@@ -55,5 +70,3 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.cntname + self.cntcomp.cmpname
-
-
