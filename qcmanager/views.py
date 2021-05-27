@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 from django.contrib.auth.decorators import login_required
-from .models import Project, ProjCategory
+from .models import Project, ProjCategory, SlfChkStandIn
 # Create your views here.
 
 
@@ -41,6 +41,16 @@ def cate_detail(request, cate_id):
     cate = ProjCategory.objects.get(id=cate_id)
     context = {
         'cate': cate,
+    }
+    return HttpResponse(template.render(context, request))
+
+
+@login_required
+def slfchkstandin_detail(request, chk_id):
+    template = loader.get_template('qcmanager/selfcheck/SlfChkStandIn_Detail.html')
+    standin = SlfChkStandIn.objects.get(id=chk_id)
+    context = {
+        'standin': standin,
     }
     return HttpResponse(template.render(context, request))
 

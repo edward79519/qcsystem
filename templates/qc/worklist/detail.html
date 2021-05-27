@@ -1,0 +1,344 @@
+{% extends 'frame/base.html' %}
+
+{% block title %}Inaenergy{% endblock %}
+{% block content %}
+
+    <section id="title">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1 class="mt-5">
+                      <a href="{%  url 'Proj_Detail' wklst.cate.proj.id %}">{{ wklst.cate.proj.name }}</a> --
+                      <a href="{% url 'Cate_Detail' wklst.cate.id %}">{{ wklst.cate.name.sn }} - {{ wklst.cate.name.name }}</a> --
+                      {{ wklst.name }}
+                    </h1>
+                    <p class="text-right">上次更新: {{ wklst.updatetime }}, 更新人：{{ wklst.editor.get_full_name }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="detail">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h3>自主檢查詳細資料</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h5 class="font-weight-bold">專案名稱：</h5>
+                </div>
+                <div class="col-2"><p>{{ wklst.cate.proj.name }}</p></div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h5 class="font-weight-bold">地點：</h5>
+                </div>
+              <div class="col-2"><p>{{ wklst.cate.proj.loc_county }} - {{ wklst.cate.proj.loc_area }}</p></div>
+                <div class="col-2">
+                    <h5 class="font-weight-bold">地段地號：</h5>
+                </div>
+                <div class="col-2">
+                    <p></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h5 class="font-weight-bold">工程類別：</h5>
+                </div>
+                <div class="col-2"><p>{{ wklst.cate.name }}</p></div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-2">
+                    <h5 class="font-weight-bold">檢查分類：</h5>
+                </div>
+                <div class="col-2">
+                    <p>{{ wklst.subcate }}</p>
+                </div>
+                <div class="col-2">
+                    <h5 class="font-weight-bold">檢查時機：</h5>
+                </div>
+                <div class="col-2">
+                    <p>{{ wklst.timing.name }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h5 class="font-weight-bold">分類負責人：</h5>
+                </div>
+                <div class="col-2">
+                    <p>{{ wklst.sponsor.get_full_name }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h5 class="font-weight-bold">開始時間：</h5>
+                </div>
+                <div class="col-2">
+                    <p>{{ wklst.starttime }}</p>
+                </div>
+                <div class="col-2">
+                    <h5 class="font-weight-bold">預計結束時間：</h5>
+                </div>
+                <div class="col-2">
+                    <p>{{ wklst.endtime }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <a role="button" href="{% url 'WkLst_Update' wklst.id %}" class="btn btn-secondary my-3">編輯自主檢查內容</a>
+                    <button type="button" class="btn btn-primary my-3" data-toggle="modal" data-target="#taskModal">新增工作安排</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="works_list">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h3>項目</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="table-responsive-sm">
+                        <table class="table table-hover text-center">
+                            <thead>
+                                <tr>
+                                    <th scope="col">題號</th>
+                                    <th scope="col">分類</th>
+                                    <th scope="col">題目</th>
+                                    <th scope="col">規範</th>
+                                    <th scope="col">重要程度</th>
+                                    <th scope="col">題目類型</th>
+                                    <th scope="col">選項</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              {% for question in quest_list %}
+                              <tr>
+                                <td>{{ question.ordering }}</td>
+                                <td>{{ question.category.name }}</td>
+                                <td>{{ question.title }}</td>
+                                <td>{{ question.abstract }}</td>
+                                <td>{{ question.rank }}</td>
+                                <td>{{ question.get_type_display }}</td>
+                                <td>
+                                  {% if question.type == 0 or question.type == 1 %}
+                                  <a
+                                    href="{% url 'Question_detail' question.id %}"
+                                    target="_blank"
+                                  >詳情</a>
+                                  {% else %}
+                                  {% endif %}
+                                </td>
+                              </tr>
+                              {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <button type="button" class="btn btn-primary my-3" data-toggle="modal" data-target="#questionModal">新增檢查項目</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 彈出視窗: 新增問卷問題-->
+        <div class="modal fade" id="questionModal" tabindex="-1" role="dialog" aria-labelledby="questionModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">新增題目</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form class="needs-validation" action="" method="POST" novalidate>
+              {% csrf_token %}
+              <div class="modal-body">
+                <div class="container-fluid">
+
+                    <div class="form-row">
+                      <div class="col-md">
+                        <div class="form-group">
+                          <label for="id_{{ form.category.name }}" class="col-form-label">檢查分類：</label>
+                          {{ form.category }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="col-md">
+                        <div class="form-group">
+                          <label for="id_{{ form.title.name }}" class="col-form-label">題目：</label>
+                          {{ form.title }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="col-md">
+                        <div class="form-group">
+                          <label for="id_{{ form.abstract.name }}" class="col-form-label">描述：</label>
+                          {{ form.abstract }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="id_{{ form.type.name }}" class="col-form-label">題目類型：</label>
+                          {{ form.type }}
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="id_{{ form.rank.name }}" class="col-form-label">等級：</label>
+                          {{ form.rank }}
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="id_{{ form.ordering.name }}" class="col-form-label">題號：</label>
+                          {{ form.ordering }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="col-md">
+                        <div class="form-group form-check">
+                          {{ form.is_required }}
+                          <label for="id_{{ form.is_required.name }}" class="form-check-label">必選</label>
+                        </div>
+                      </div>
+                    </div>
+                    <input type="hidden" name="worklist" id="id_worklist" value="{{ wklst.id }}">
+                    <input type="hidden" name="editor" id="id_editor" value="{{ user.id }}">
+
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                <button type="submit" class="btn btn-primary">送出</button>
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!- 新增工作安排區塊  ->
+        <div class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="taskModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">新增工作安排</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form class="needs-validation" action="" method="POST" novalidate>
+              {% csrf_token %}
+              <div class="modal-body">
+                <div class="container-fluid">
+
+                    <div class="form-row">
+                      <div class="col-md">
+                        <div class="form-group">
+                          <label for="id_{{ taskform.sponsor.name }}" class="col-form-label">負責人：</label>
+                          {{ taskform.sponsor }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="col-md">
+                        <div class="form-group">
+                          <label for="id_{{ taskform.sched_time.name }}" class="col-form-label">預定檢查時間：</label>
+                          {{ taskform.sched_time }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="col-md">
+                        <div class="form-group">
+                          <label for="id_{{ taskform.countname }}" class="col-form-label">檢查數量：</label>
+                          {{ taskform.count }}
+                        </div>
+                      </div>
+                    </div>
+
+                    <input type="hidden" name="worklist" id="id_worklist" value="{{ wklst.id }}">
+                    <input type="hidden" name="editor" id="id_editor" value="{{ user.id }}">
+
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                <button type="submit" class="btn btn-primary">送出</button>
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+    </section>
+
+    <section id="task_arrange">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h3>工作安排</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-responsive-sm">
+                        <table class="table table-hover text-center">
+                            <thead>
+                                <tr>
+                                    <th>編號</th>
+                                    <th>預定檢查時間</th>
+                                    <th>數量</th>
+                                    <th>負責人</th>
+                                    <th>完成時間</th>
+                                    <th>檢核狀態</th>
+                                    <th>動作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for task in task_list %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ task.sched_time }}</td>
+                                    <td>{{ task.count }}</td>
+                                    <td>{{ task.sponsor.get_full_name }}</td>
+                                    <td>
+                                      {% if task.is_completed %}
+                                      完成
+                                      {% else %}
+                                      未完成
+                                      {% endif %}
+                                    </td>
+                                    <td>
+                                      {% if task.is_checked %}
+                                      完成
+                                      {% else %}
+                                      未確認
+                                      {% endif %}
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary">填寫</button>
+                                        <button class="btn btn-sm btn-primary">編輯</button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

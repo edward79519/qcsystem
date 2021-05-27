@@ -1,0 +1,71 @@
+{% extends 'frame/base.html' %}
+
+{% block title %}Inaenergy{% endblock %}
+{% block content %}
+
+    <section id="title">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1 class="mt-5">更新專案： {{ proj.sn }}-{{ proj.name }} </h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="detail">
+        <div class="container">
+          <form class="needs-validation" action="" method="POST" novalidate>
+            {% csrf_token %}
+            <div class="form-row mb-3">
+              <div class="col-md-6 my-1">
+                <label for="id_{{ form.sn.name }}">專案編號：</label>
+                <h3>{{ proj.sn }}</h3>
+              </div>
+              <div class="col-md-6 my-1">
+                <label for="id_{{ form.name.name }}">專案名稱：</label>
+                {{ form.name }}
+              </div>
+            </div>
+            <div class="form-row mb-3">
+              <div class="col-md-12 my-1">
+                <label for="id_{{ form.sponsor.name }}">負責人：</label>
+                {{ form.sponsor }}
+              </div>
+            </div>
+            <div class="form-row mb-3">
+              <div class="col-md-6 my-1">
+                <label for="id_{{ form.loc_county.name }}">縣/市：</label>
+                {{ form.loc_county }}
+              </div>
+              <div class="col-md-6 my-1">
+                <label for="id_{{ form.loc_area.name }}">鄉鎮市區：</label>
+                {{ form.loc_area }}
+              </div>
+            </div>
+            <div class="form-row mb-3">
+              <div class="col-md-6 my-3">
+                <label for="id_{{ form.starttime.name }}">開始時間：</label>
+                {{ form.starttime }}
+              </div>
+              <div class="col-md-6 my-3">
+                <label for="id_{{ form.endtime.name }}">預計結束時間：</label>
+                {{ form.endtime }}
+              </div>
+            </div>
+            <div class="form-row mb-3">
+              <div class="col-md-12 my-3">
+                <label for="id_{{ form.remark.name }}">備註：</label>
+                {{ form.remark }}
+              </div>
+            </div>
+            <input type="hidden" name="editor" id="id_editor" value="{{ user.id }}">
+            <div class="form-row mb-3">
+              <div class="col-lg-12">
+                <input class="btn btn-outline-primary" type="reset" value="清除輸入">
+                <button class="btn btn-primary" type="submit">儲存</button>
+              </div>
+            </div>
+          </form>
+        </div>
+    </section>
+{% endblock %}

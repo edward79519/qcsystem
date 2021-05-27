@@ -26,4 +26,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include('core.urls')),
     path('qcmanager/', include('qcmanager.urls')),
+    path('qc/', include('qc.urls')),
 ]

@@ -1,0 +1,84 @@
+{% extends 'frame/base.html' %}
+
+{% block title %}Inaenergy{% endblock %}
+{% block content %}
+
+    <section id="title">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1 class="mt-5">{{ standin.worksn }}-{{ standin.sn }}</h1>
+                    <p class="text-right">上次更新: {{ standin.edittime }}, 更新人：{{ standin.editor.get_full_name }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="detail">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h3>表單詳細資料</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h5 class="font-weight-bold">編號：</h5>
+                </div>
+                <div class="col-3"><P>{{ standin.sn }}</P></div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h5 class="font-weight-bold">名稱：</h5>
+                </div>
+                <div class="col-3"><p>{{ standin.worksn }}</p></div>
+            </div>
+
+            <div class="row">
+                <div class="col-2">
+                    <h5 class="font-weight-bold">檢查時機：</h5>
+                </div>
+                <div class="col-3"><p>{{ standin.timing }}</p></div>
+            </div>
+            <div class="row">
+                  <div class="col-2">
+                      <h5 class="font-weight-bold">檢查地點：</h5>
+                  </div>
+                  <div class="col-3"><p>{{ standin.chkloc }}</p></div>
+            </div>
+            <div class="row">
+                  <div class="col-2">
+                      <h5 class="font-weight-bold">檢查時間：</h5>
+                  </div>
+                  <div class="col-3"><p>{{ standin.chktime }}</p></div>
+            </div>
+            <div class="row">
+                  <div class="col-2">
+                      <h5 class="font-weight-bold">檢查人員：</h5>
+                  </div>
+                  <div class="col-3"><p>{{ standin.chkuser }}</p></div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h5 class="font-weight-bold">檢查數量：</h5>
+                </div>
+                <div class="col-3"><p>{{ standin.amount }}</p></div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h5 class="font-weight-bold">承攬廠商：</h5>
+                </div>
+                <div class="col-3"><p>{{ standin.contractor.cntcomp }}</p></div>
+                <div class="col-2">
+                    <h5 class="font-weight-bold">聯絡人：</h5>
+                </div>
+                <div class="col-3"><p>{{ standin.contractor.cntname }}</p></div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h5 class="font-weight-bold">檢查評分：</h5>
+                </div>
+                <div class="col-3"><p>{{ standin.score }}/{{ standin.total_score }}</p></div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

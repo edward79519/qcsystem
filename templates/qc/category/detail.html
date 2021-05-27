@@ -1,0 +1,122 @@
+{% extends 'frame/base.html' %}
+
+{% block title %}Inaenergy{% endblock %}
+{% block content %}
+
+    <section id="title">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1 class="mt-5">
+                      <a href="{% url 'Proj_Detail' cate.proj.id %}">{{ cate.proj.name }}</a>  --
+                      {{ cate.name.sn }} - {{ cate.name.name }}</h1>
+                    <p class="text-right">上次更新: {{ cate.updatetime }}, 更新人：{{ cate.editor.get_full_name }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="detail">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h3>工程分類資料</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h5 class="font-weight-bold">專案名稱：</h5>
+                </div>
+                <div class="col-2"><P>{{ cate.proj.name }}</P></div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h5 class="font-weight-bold">地點：</h5>
+                </div>
+                <div class="col-2">{{ cate.proj.loc_county }} - {{ cate.proj.loc_area }}</div>
+                <div class="col-2">
+                    <h5 class="font-weight-bold">地段地號：</h5>
+                </div>
+                <div class="col-2">
+                    <p></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h5 class="font-weight-bold">分類負責人：</h5>
+                </div>
+                <div class="col-2">
+                    <p>{{ cate.sponsor.get_full_name }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h5 class="font-weight-bold">開始時間：</h5>
+                </div>
+                <div class="col-2">
+                    <p>{{ cate.starttime }}</p>
+                </div>
+                <div class="col-2">
+                    <h5 class="font-weight-bold">預計結束時間：</h5>
+                </div>
+                <div class="col-2">
+                    <p>{{ cate.endtime }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h5 class="font-weight-bold">備註：</h5>
+                </div>
+                <div class="col">
+                    <p>{{ cate.remark }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <a role="button" href="{% url 'Cate_Update' cate.id %}" class="btn btn-secondary my-3">編輯專案內容</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="works_list">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h3>自主檢查項目</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="table-responsive-sm">
+                        <table class="table table-hover text-center">
+                            <thead>
+                                <tr>
+                                    <th scope="col">分類項目</th>
+                                    <th scope="col">檢查時機</th>
+                                    <th scope="col">名稱</th>
+                                    <th scope="col">負責人</th>
+                                    <th scope="col">進度</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              {% for work in work_list %}
+                              <tr>
+                                <th>{{ work.subcate.name }}</th>
+                                <td>{{ work.timing.name }}</td>
+                                <td><a href="{% url 'WkLst_detail' work.id %}">{{ work.name }}</a></td>
+                                <td>{{ work.sponsor }}</td>
+                                <td></td>
+                              </tr>
+                              {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <a role="button" class="btn btn-primary" href="{% url 'WkLst_Add' cate.id %}">新增</a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
