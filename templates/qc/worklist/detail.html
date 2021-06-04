@@ -1,4 +1,5 @@
 {% extends 'frame/base.html' %}
+{% load static %}
 
 {% block title %}Inaenergy{% endblock %}
 {% block content %}
@@ -66,10 +67,24 @@
             </div>
             <div class="row">
                 <div class="col-2">
-                    <h5 class="font-weight-bold">分類負責人：</h5>
+                    <h5 class="font-weight-bold">自檢負責人：</h5>
                 </div>
                 <div class="col-2">
                     <p>{{ wklst.sponsor.get_full_name }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h5 class="font-weight-bold">承包商：</h5>
+                </div>
+                <div class="col-2">
+                    <p>{{ wklst.contractor.comp.cmpname }}</p>
+                </div>
+                <div class="col-2">
+                    <h5 class="font-weight-bold">廠商負責人：</h5>
+                </div>
+                <div class="col-2">
+                    <p>{{ wklst.contractor.name }}</p>
                 </div>
             </div>
             <div class="row">
@@ -89,6 +104,7 @@
             <div class="row">
                 <div class="col">
                     <a role="button" href="{% url 'WkLst_Update' wklst.id %}" class="btn btn-secondary my-3">編輯自主檢查內容</a>
+                    <button type="button" class="btn btn-primary my-3" data-toggle="modal" data-target="#questionModal">新增檢查項目</button>
                     <button type="button" class="btn btn-primary my-3" data-toggle="modal" data-target="#taskModal">新增工作安排</button>
                 </div>
             </div>
@@ -98,7 +114,7 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <h3>項目</h3>
+                    <h3>檢查項目</h3>
                 </div>
             </div>
             <div class="row">
@@ -143,7 +159,7 @@
             </div>
             <div class="row">
                 <div class="col-sm">
-                    <button type="button" class="btn btn-primary my-3" data-toggle="modal" data-target="#questionModal">新增檢查項目</button>
+
                 </div>
             </div>
         </div>
@@ -158,7 +174,7 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <form class="needs-validation" action="" method="POST" novalidate>
+              <form class="needs-validation" action="" method="POST" enctype="multipart/form-data" novalidate>
               {% csrf_token %}
               <div class="modal-body">
                 <div class="container-fluid">
@@ -182,12 +198,26 @@
                     <div class="form-row">
                       <div class="col-md">
                         <div class="form-group">
-                          <label for="id_{{ form.abstract.name }}" class="col-form-label">描述：</label>
+                          <label for="id_{{ form.abstract.name }}" class="col-form-label">檢查規範：</label>
                           {{ form.abstract }}
                         </div>
                       </div>
                     </div>
                     <div class="form-row">
+                      <div class="col-md">
+                        <div class="form-group">
+                          <label for="id_{{ form.method.name }}" class="col-form-label">檢查方法：</label>
+                          {{ form.method }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="id_{{ form.ordering.name }}" class="col-form-label">題號：</label>
+                          {{ form.ordering }}
+                        </div>
+                      </div>
                       <div class="col-md-4">
                         <div class="form-group">
                           <label for="id_{{ form.type.name }}" class="col-form-label">題目類型：</label>
@@ -200,16 +230,34 @@
                           {{ form.rank }}
                         </div>
                       </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label for="id_{{ form.ordering.name }}" class="col-form-label">題號：</label>
-                          {{ form.ordering }}
+                    </div>
+                    <div class="form-row">
+                      <div class="col-md-12">
+                        <label class="col-form-label">圖說-合格</label>
+                        <div class="custom-file">
+                          {{ form.goodimg }}
+                          <label class="custom-file-label" for="id_{{ form.goodimg.name }}">選擇照片...</label>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <label class="col-form-label">圖說-不合格</label>
+                        <div class="custom-file">
+                          {{ form.badimg }}
+                          <label class="custom-file-label" for="id_{{ form.badimg.name }}">選擇照片...</label>
                         </div>
                       </div>
                     </div>
                     <div class="form-row">
                       <div class="col-md">
-                        <div class="form-group form-check">
+                        <div class="form-group">
+                          <label for="id_{{ form.improvement.name }}" class="col-form-label">缺失改善：</label>
+                          {{ form.improvement }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="col-md">
+                        <div class="form-group form-check my-3">
                           {{ form.is_required }}
                           <label for="id_{{ form.is_required.name }}" class="form-check-label">必選</label>
                         </div>
@@ -298,9 +346,9 @@
                             <thead>
                                 <tr>
                                     <th>編號</th>
-                                    <th>預定檢查時間</th>
-                                    <th>數量</th>
                                     <th>負責人</th>
+                                    <th>數量</th>
+                                    <th>預定檢查時間</th>
                                     <th>完成時間</th>
                                     <th>檢核狀態</th>
                                     <th>動作</th>
@@ -310,9 +358,9 @@
                                 {% for task in task_list %}
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
-                                    <td>{{ task.sched_time }}</td>
-                                    <td>{{ task.count }}</td>
                                     <td>{{ task.sponsor.get_full_name }}</td>
+                                    <td>{{ task.count }}</td>
+                                    <td>{{ task.sched_time }}</td>
                                     <td>
                                       {% if task.is_completed %}
                                       完成
@@ -328,8 +376,12 @@
                                       {% endif %}
                                     </td>
                                     <td>
-                                        <button class="btn btn-sm btn-primary">填寫</button>
-                                        <button class="btn btn-sm btn-primary">編輯</button>
+                                        {%  if task.is_filled %}
+                                        <a role="button" class="btn btn-sm btn-secondary" href="{% url 'Task_Detail' task.id %}">檢視</a>
+                                        {% else %}
+                                        <a role="button" class="btn btn-sm btn-primary" href="{% url 'Task_Fill' task.id %}">填寫</a>
+                                        {% endif %}
+
                                     </td>
                                 </tr>
                                 {% endfor %}
@@ -341,4 +393,8 @@
             </div>
         </div>
     </section>
+    <script src="{% static 'bootstrap/js/bs-custom-file-input.js' %}"></script>
+    <script>
+      bsCustomFileInput.init()
+    </script>
 {% endblock %}

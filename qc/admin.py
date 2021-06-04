@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import (
     Contact, Company, Project, Category, CategorySelectName, SubCateSelect, TimingSelect,
-    WorkList, Question, QuestionCategory, Choice, Task
+    WorkList, Question, QuestionCategory, Choice, Task, AnsSingle,
 )
 
 # Register your models here.
@@ -55,6 +55,10 @@ class TaskAdmin(admin.ModelAdmin):
     list_display = ('id', 'worklist', 'sched_time', 'sponsor')
 
 
+class AnsSingleAdmin(admin.ModelAdmin):
+    list_display = ('id', 'question', 'choice', 'editor')
+
+
 admin.site.register(Contact, ContactAdmin)
 admin.site.register(Company, CompanyAdmin)
 admin.site.register(Project, ProjectAdmin)
@@ -67,3 +71,4 @@ admin.site.register(Question, QuestionAdmin)
 admin.site.register(QuestionCategory, QuestCateAdmin)
 admin.site.register(Choice, ChoiceAdmin)
 admin.site.register(Task, TaskAdmin)
+admin.site.register(AnsSingle, AnsSingleAdmin)

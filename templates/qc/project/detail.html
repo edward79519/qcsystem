@@ -31,7 +31,7 @@
                 <div class="col-2">
                     <h5 class="font-weight-bold">地點：</h5>
                 </div>
-                <div class="col-2">{{ proj.loc_county }}-{{ proj.loc_area }}</div>
+                <div class="col-2"><p>{{ proj.loc_county }}-{{ proj.loc_area }}</p></div>
                 <div class="col-2">
                     <h5 class="font-weight-bold">地段地號：</h5>
                 </div>
@@ -101,8 +101,8 @@
                                 {% for cate in cate_list %}
                                 <tr>
                                     <td>{{ cate.name.sn }}</td>
-                                    <td><a href="{% url 'Cate_Detail' cate.name.id %}">{{ cate.name.name }}</a></td>
-                                    <td>{{ cate.sponsor }}</td>
+                                    <td><a href="{% url 'Cate_Detail' cate.id %}">{{ cate.name.name }}</a></td>
+                                    <td>{{ cate.sponsor.get_full_name }}</td>
                                     <td>{{ cate.starttime }}</td>
                                     <td>{{ cate.endtime }}</td>
                                     <td></td>

@@ -98,15 +98,20 @@ class QuestionAddForm(forms.ModelForm):
 
     class Meta:
         model = Question
-        fields = ['worklist', 'category', 'title', 'abstract', 'type', 'rank', 'ordering', 'is_required', 'editor']
+        fields = ['worklist', 'category', 'title', 'abstract', 'type', 'rank', 'ordering', 'is_required', 'editor',
+                  'goodimg', 'badimg', 'method', 'improvement']
         widgets = {
             'category': forms.Select(attrs={'class': 'custom-select'}),
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'abstract': forms.TextInput(attrs={'class': 'form-control'}),
             'type': forms.Select(attrs={'class': 'custom-select'}),
             'rank': forms.NumberInput(attrs={'class': 'form-control', 'min': 1, 'max': 5}),
+            'method': forms.TextInput(attrs={'class': 'form-control'}),
+            'goodimg': forms.ClearableFileInput(attrs={'class': 'custom-file-input'}),
+            'badimg': forms.ClearableFileInput(attrs={'class': 'custom-file-input'}),
             'ordering': forms.NumberInput(attrs={'class': 'form-control', 'min': 0}),
             'is_required': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'improvement': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
 
@@ -130,3 +135,5 @@ class TaskAddForm(forms.ModelForm):
             'count': forms.NumberInput(attrs={'class': 'form-control', 'min': 0}),
             'sched_time': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
         }
+
+

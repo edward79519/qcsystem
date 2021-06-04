@@ -1,6 +1,6 @@
 from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Project, Category, WorkList, Question, Choice
+from .models import Project, Category, WorkList, Question, Choice, AnsSingle
 from .forms import (ProjectAddForm, ProjectUpdateForm, CateAddForm, CateUpdateForm, WorkListAddForm, WorkListUpdateForm,
                     QuestionAddForm, ChoiceAddForm, Task, TaskAddForm)
 from django.db import transaction, DatabaseError
@@ -126,7 +126,7 @@ def worklist_detail(request, wk_id):
     quest_list = Question.objects.filter(worklist_id=wk_id).order_by("ordering")
     task_list = Task.objects.filter(worklist_id=wk_id)
     if request.method == "POST":
-        form = QuestionAddForm(request.POST)
+        form = QuestionAddForm(request.POST, request.FILES)
         taskform = TaskAddForm(request.POST)
         if form.is_valid() and not taskform.is_valid():
             try:
@@ -238,4 +238,53 @@ def choice_delete(request, choice_id, quest_id):
     return HttpResponseRedirect("/qc/question/{}/".format(str(quest_id)))
 
 
+def task_fill(request, task_id):
+    task = Task.objects.get(id=task_id)
+    questions = Question.objects.filter(worklist_id=task.worklist.id)
+    template = loader.get_template('qc/task/fill.html')
+    if request.method == "POST":
+        ans_objs = []
+        for key in request.POST:
+            if "csrf" not in key:
+                q_type = Question.objects.get(id=key).type
+                if q_type == 0:
+                    ans = AnsSingle(
+                        task=task,
+                        editor=request.user,
+                        question_id=key,
+                        choice_id=request.POST[key],
+                    )
+                    print(ans.task)
+                    ans_objs.append(ans)
+        print(ans_objs)
+        try:
+            with transaction.atomic():
+                AnsSingle.objects.bulk_create(ans_objs)
+                task.is_filled = True
+                task.save()
+                return HttpResponseRedirect('/qc/worklist/' + str(task.worklist.id) + '/')
+        except DatabaseError as e:
+            print(e)
+            return HttpResponseRedirect('./')
+    context = {
+        'task': task,
+        'questions': questions,
+    }
+    return HttpResponse(template.render(context, request))
 
+
+def task_detail(request, task_id):
+    task = Task.objects.get(id=task_id)
+    questions = Question.objects.filter(worklist_id=task.worklist.id)
+    template = loader.get_template('qc/task/detail.html')
+    '''
+    ans = {}
+    for question in questions:
+        if question.type == 0:
+            ans[question.id] = AnsSingle.objects.get(task=task, question=question).choice.desc
+    '''
+    context = {
+        'task': task,
+        'questions': questions,
+    }
+    return HttpResponse(template.render(context, request))

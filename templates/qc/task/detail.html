@@ -1,0 +1,197 @@
+{% extends 'frame/base.html' %}
+{% load choice_ans %}
+
+{% block title %}Inaenergy{% endblock %}
+{% block content %}
+
+    <section id="title">
+        <div class="container d-print-none">
+            <div class="row">
+                <div class="col">
+                    <h1 class="my-5">{{ task.worklist.name }}</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="detail">
+        <div class="container d-print-none">
+            <div class="row">
+                <div class="col col-sm-2">
+                    <h5 class="font-weight-bold">工程名稱：</h5>
+                </div>
+                <div class="col col-sm-6">
+                    <p>{{ task.worklist.cate.proj.name }}</p>
+                </div>
+                <div class="col col-sm-2">
+                    <h5 class="font-weight-bold">表單編號：</h5>
+                </div>
+                <div class="col col-sm-2">{{ worklist }}</div>
+            </div>
+            <div class="row">
+                <div class="col col-sm-2">
+                    <h5 class="font-weight-bold">承攬廠商：</h5>
+                </div>
+                <div class="col col-sm-2">
+                    <p>{{ task.worklist.contractor.comp.cmpname }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-sm-2">
+                    <h5 class="font-weight-bold">檢查位置：</h5>
+                </div>
+                <div class="col col-sm-2">
+                    <p>{{ task.worklist.cate.proj.loc_area }}</p>
+                </div>
+                <div class="col col-sm-2">
+                    <h5 class="font-weight-bold">檢查人員：</h5>
+                </div>
+                <div class="col col-sm-2">
+                    <p>{{ task.sponsor }}</p>
+                </div>
+                <div class="col col-sm-2">
+                    <h5 class="font-weight-bold">檢查日期：</h5>
+                </div>
+                <div class="col col-sm-2">
+                    <p>{{ task.sched_time }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container d-print-none">
+            <div class="row">
+                <div class="col">
+                    {% for question in questions %}
+                        <div class="card my-3">
+                            <div class="card-header font-weight-bold">
+                                {{ question.category.name }} Q. {{ question.ordering }}
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col col-lg-6">
+                                      <h5 class="card-title font-weight-bold"> {{ question.title }} ({{ question.method|default_if_none:"" }})</h5>
+                                      <p class="card-text"> {{ question.abstract }} </p>
+                                      <h6 class="card-title font-weight-bold">不合格處置：</h6>
+                                      <p class="card-text"> {{ question.improvement }}</p>
+
+                                    </div>
+                                    <div class="col col-lg-6">
+                                      <h5 class="card-title font-weight-bold">圖說</h5>
+                                      <div class="row">
+                                        <div class="col col-sm-6">
+                                          <p class="text-primary">合格</p>
+                                          <img src="{% if question.goodimg %}{{ question.goodimg.url }}{% endif %}" width="100%">
+                                        </div>
+                                        <div class="col col-sm-6">
+                                          <p class="text-danger">不合格</p>
+                                          <img src="{% if question.badimg %}{{ question.badimg.url }}{% endif %}" width="100%">
+                                        </div>
+                                      </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col col-sm-12">
+                                      <p class="card-text">
+                                         答： <span class="text-primary font-weight-bold">{{ question|ans:task }}</span>
+                                      </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="print_page">
+        <div class="container d-none d-print-block">
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="text-center my-3 font-weight-bold">{{ task.worklist.name }}</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th scope="col" width="10%">工程名稱</th>
+                                <td colspan="3">{{ task.worklist.cate.proj.name }}</td>
+                                <th scope="col" width="10%">表單編號</th>
+                                <td width="15%">{{ task.worklist }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">承攬廠商</th>
+                                <td colspan="3">{{ task.worklist.contractor.comp.cmpname }}</td>
+                                <th scope="row">負責人</th>
+                                <td>{{ task.worklist.contractor.name}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">檢查位置</th>
+                                <td>{{ task.worklist.cate.proj.loc_area }}</td>
+                                <th scope="row" width="10%">檢查人員</th>
+                                <td width="10%">{{ task.sponsor.get_full_name }}</td>
+                                <th scope="row">檢查時間</th>
+                                <td>{{ task.updatetime|date:"Y/m/d" }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered">
+                        <thead class="text-center">
+                            <tr>
+                                <th scope="col" colspan="9" class="text-center">檢查項目</th>
+                            </tr>
+                            <tr>
+                                <th scope="col" colspan="2">問題</th>
+                                <th scope="col">規範</th>
+                                <th scope="col">檢查方式</th>
+                                <th scope="col">重要程度</th>
+                                <th scope="col">不合標準處置</th>
+                                <th scope="col">實際檢查狀況</th>
+                                <th scope="col">圖說(合格)</th>
+                                <th scope="col">圖說(不合格)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for question in questions %}
+                            <tr>
+                                <td>{{ question.category.name }}</td>
+                                <td>{{ question.title }}</td>
+                                <td>{{ question.abstract }}</td>
+                                <td>{{ question.method|default_if_none:"" }}</td>
+                                <td>{{ question.rank }}</td>
+                                <td>{{ question.improvement|default_if_none:"" }}</td>
+                                <td>{{ question|ans:task|default_if_none:"" }}</td>
+                                <td><img src="{% if question.goodimg %}{{ question.goodimg.url }}{% endif %}" width="100"></td>
+                                <td><img src="{% if question.badimg %}{{ question.badimg.url }}{% endif %}" width="100"></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot class="text-center">
+                            <tr>
+                                <th colspan="9" class="text-center">缺失改進計畫</th>
+                            </tr>
+                            <tr style="height: 200px">
+                                <td colspan="9"> </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <table class="table table-bordered">
+                        <thead class="text-center">
+                            <tr>
+                                <th width="50%">檢查人簽名</th>
+                                <th width="50%">廠商負責人簽名</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="height: 100px">
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.index, name="Qc_Index"),
@@ -14,4 +16,7 @@ urlpatterns = [
     path('worklist/<int:wk_id>/update/', views.worklist_update, name="WkLst_Update"),
     path('question/<int:quest_id>/', views.question_detail, name='Question_detail'),
     path('question/<int:quest_id>/<int:choice_id>/delete/', views.choice_delete, name='Choice_Delete'),
+    path('task/<int:task_id>/fill/', views.task_fill, name='Task_Fill'),
+    path('task/<int:task_id>/', views.task_detail, name='Task_Detail'),
 ]
+
