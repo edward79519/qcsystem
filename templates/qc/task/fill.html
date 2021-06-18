@@ -91,11 +91,13 @@
                                 </div>
                                 <div class="row">
                                     <div class="col col-sm-12">
-                                      <select name="{{ question.id }}" class="custom-select mr-sm-2 col-2" required>
-                                      {% for choice in question.q_choice.all %}
-                                         <option value="{{ choice.id }}">{{ choice.desc }}</option>
-                                      {% endfor %}
-                                      </select>
+                                    {% if question.type == 0 %}
+                                        <select name="{{ question.id }}" class="custom-select mr-sm-2 col-2" required>
+                                        {% for choice in question.q_choice.all %}
+                                           <option value="{{ choice.id }}">{{ choice.desc }}</option>
+                                        {% endfor %}
+                                        </select>
+                                    {% endif %}
                                     </div>
                                 </div>
                             </div>

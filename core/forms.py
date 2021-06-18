@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth.models import User
 
 from core.models import Employee
-
+from core.custom.land import get_county_choice
 
 class EmployeeCreationForm(UserCreationForm):
     password1 = forms.CharField(
@@ -87,7 +87,6 @@ class UserUpdateForm(forms.ModelForm):
         }
 
 
-
 class EmployeeUpdateForm(forms.ModelForm):
 
     class Meta:
@@ -103,3 +102,47 @@ class EmployeeUpdateForm(forms.ModelForm):
             'ext': '分機',
             'department': '部門',
         }
+
+
+class LandForm(forms.Form):
+
+    county = forms.ChoiceField(
+        choices=get_county_choice(),
+        widget=forms.Select(attrs={'class': 'form-control'}),
+    )
+    area = forms.CharField(widget=forms.Select(attrs={'class': 'form-control'}))
+    section = forms.CharField(widget=forms.Select(attrs={'class': 'form-control'}))
+    office = forms.CharField(widget=forms.HiddenInput)
+    locnum = forms.CharField(widget=forms.HiddenInput)
+    cx = forms.DecimalField(
+        max_digits=9,
+        decimal_places=6,
+        widget=forms.NumberInput(attrs={
+            'max': 180, 'min': -180, 'class': 'form-control readonly', 'required': True}),
+    )
+    cy = forms.DecimalField(
+        max_digits=9,
+        decimal_places=6,
+        widget=forms.NumberInput(attrs={
+            'max': 90, 'min': -90, 'class': 'form-control readonly', 'required': True}),
+    )
+    lx = forms.DecimalField(
+        max_digits=9,
+        decimal_places=6,
+        widget=forms.HiddenInput(),
+    )
+    ly = forms.DecimalField(
+        max_digits=9,
+        decimal_places=6,
+        widget=forms.HiddenInput(),
+    )
+    rx = forms.DecimalField(
+        max_digits=9,
+        decimal_places=6,
+        widget=forms.HiddenInput(),
+    )
+    ry = forms.DecimalField(
+        max_digits=9,
+        decimal_places=6,
+        widget=forms.HiddenInput(),
+    )

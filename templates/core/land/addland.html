@@ -1,0 +1,112 @@
+{% extends 'frame/base.html' %}
+
+{% block title %}Inaenergy{% endblock %}
+{% block scripts %}
+<script src="/static/custom/js/landinfor.js"></script>
+{% endblock %}
+{% block content %}
+    <section id="title">
+        <div class="container">
+            <div class="row my-3">
+                <div class="col">
+                    <h1>新增土地資料</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="message_div">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if message.tags == "success" %}
+                            <div class="alert alert-success">
+                              <strong>{{ message }}</strong>
+                            </div>
+                        {% else %}
+                            <div class="alert alert-danger">
+                              <strong>{{ message }}</strong>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+    </section>
+    <section id="content">
+        <div class="container">
+            <form method="POST" class="needs-validation" onsubmit="" novalidate>
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="col-12 col-sm-6 my-3">
+                    <div class="form-group">
+                        <label for="county">縣市</label>
+                        {{ form.county }}
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 my-3">
+                    <div class="form-group">
+                        <label for="area">鄉鎮市區</label>
+                        {{ form.area }}
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 my-3">
+                    <div class="form-group">
+                        <label for="section">地段</label>
+                        {{ form.section }}
+                    </div>
+                </div>
+                <div class="col col-sm-6 my-3">
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="col">
+                              <label for="locnum1">地號(前四碼)</label>
+                              <input type="text" id="locnum1" class="form-control" pattern="[0-9]{0,4}" maxlength="4">
+                            </div>
+                            <div class="col-1 text-center">
+                                -
+                            </div>
+                            <div class="col">
+                              <label for="locnum2">地號(後四碼)</label>
+                              <input type="text" id="locnum2" class="form-control" pattern="[0-9]{0,4}" maxlength="4">
+                            </div>
+                        </div>
+                        <small class="form-text text-muted"> 請輸入地號 XXXX-OOOO</small>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col my-3">
+                    <input type="button" class="btn btn-primary" id="id_findgps" value="查詢GPS位置">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <div class="text-danger" id="gpsmsg"></div>
+                    <div class="form-group">
+                        <label for="cy">緯度:</label>
+                        {{ form.cy }}
+                    </div>
+                    <div class="form-group">
+                        <label for="cx">經度</label>
+                        {{ form.cx }}
+                    </div>
+                    <input type="hidden" id="county_ch" name="county_ch">
+                    <input type="hidden" id="area_ch" name="area_ch">
+                    <input type="hidden" id="section_ch" name="section_ch">
+                    {{ form.office }}
+                    {{ form.locnum }}
+                    {{ form.lx }}
+                    {{ form.ly }}
+                    {{ form.rx }}
+                    {{ form.ry }}
+                    <button type="submit" id="landcheck" class="btn btn-primary">送出</button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </section>
+{% endblock %}

@@ -3,12 +3,12 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, redirect
 from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Employee
-from .forms import EmployeeCreationForm, LoginForm, ChangePWDForm, EmployeeUpdateForm, UserUpdateForm
+from .models import Employee, Land, County, Area, Section
+from .forms import EmployeeCreationForm, LoginForm, ChangePWDForm, EmployeeUpdateForm, UserUpdateForm, LandForm
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.models import User
+from django.db import transaction, DatabaseError
 from django.contrib.auth.forms import PasswordChangeForm
-
 # Create your views here.
 
 
@@ -114,5 +114,69 @@ def user_update_profile(request):
     context = {
         'user_form': user_form,
         'prof_form': prof_form,
+    }
+    return HttpResponse(template.render(context, request))
+
+
+@login_required
+def land_add(request):
+    template = loader.get_template('core/land/addland.html')
+    if request.method == "POST":
+        form = LandForm(request.POST)
+        if form.is_valid():
+            print(form.is_valid())
+            try:
+                with transaction.atomic():
+                    county, county_created = County.objects.get_or_create(
+                        sn=form.cleaned_data['county'],
+                        name=request.POST['county_ch'],
+                    )
+                    area, area_created = Area.objects.get_or_create(
+                        sn=form.cleaned_data['area'],
+                        county=county,
+                        name=request.POST['area_ch'])
+                    section, sec_created = Section.objects.get_or_create(
+                        sn=form.cleaned_data['section'],
+                        area=area,
+                        office=form.cleaned_data['office'],
+                        name=request.POST['section_ch'],
+                    )
+                    land, land_created = Land.objects.get_or_create(
+                        sn=form.cleaned_data['locnum'],
+                        section=section,
+                        cx=form.cleaned_data['cx'],
+                        cy=form.cleaned_data['cy'],
+                        lx=form.cleaned_data['lx'],
+                        ly=form.cleaned_data['ly'],
+                        rx=form.cleaned_data['rx'],
+                        ry=form.cleaned_data['ry'],
+                    )
+                if land_created:
+                    messages.success(request, "成功新增一筆土地：{}-{}。".format(land.section.name, land.sn))
+                    return HttpResponseRedirect("/core/land/")
+                else:
+                    messages.error(request, "此土地已新增，請輸入下一筆。")
+                    return HttpResponseRedirect("./")
+            except DatabaseError as e:
+                print(e)
+                messages.error(request, "新增錯誤，請再確認輸入內容。")
+                return HttpResponseRedirect("./")
+        else:
+            messages.error(request, "新增錯誤，請再確認輸入內容。")
+            print(form.is_valid())
+            return HttpResponseRedirect("./")
+    else:
+        form = LandForm()
+    context = {
+        'form': form,
+    }
+    return HttpResponse(template.render(context, request))
+
+
+def land_list(request):
+    template = loader.get_template("core/land/landlist.html")
+    lands = Land.objects.all()
+    context = {
+        'lands': lands,
     }
     return HttpResponse(template.render(context, request))

@@ -26,7 +26,7 @@ urlpatterns = [
     path('login/', core.views.user_login, name='Login'),
     path('logout/', core.views.user_logout, name='Logout'),
     path('admin/', admin.site.urls),
-    path('user/', include('core.urls')),
+    path('core/', include('core.urls')),
     path('qcmanager/', include('qcmanager.urls')),
     path('qc/', include('qc.urls')),
 ]
