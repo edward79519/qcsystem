@@ -1,0 +1,58 @@
+{% extends 'frame/base.html' %}
+
+{% block title %}Inaenergy{% endblock %}
+{% block content %}
+
+    <section id="title">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1 class="mt-5">土地清單</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <a role="button" class="btn btn-primary my-3" href="{% url 'Land_Add' %}">新增</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="table-responsive-sm">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>縣市</th>
+                                    <th>鄉鎮市區</th>
+                                    <th>地段</th>
+                                    <th>地號</th>
+                                    <th>GPS座標</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for land in lands %}
+                                    <tr>
+                                        <td>{{ land.section.area.county.name }}</td>
+                                        <td>{{ land.section.area.name }}</td>
+                                        <td>{{ land.section.name }}</td>
+                                        <td>{{ land.landnum }}</td>
+                                        <td>
+                                            <a href="https://www.google.com/maps/search/?api=1&query={{ land.cy }},{{ land.cx }}" target="_blank">({{ land.cy }}, {{ land.cx }})</a>
+                                        </td>
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="5"></td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
