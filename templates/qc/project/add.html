@@ -1,6 +1,7 @@
 {% extends 'frame/base.html' %}
 
 {% block title %}Inaenergy{% endblock %}
+
 {% block content %}
 
     <section id="title">
@@ -43,6 +44,12 @@
               </div>
             </div>
             <div class="form-row mb-3">
+              <div class="col-md-12 my-1">
+                <label for="id_{{ form.land.name }}">地段地號：</label>
+                {{ form.land }}
+              </div>
+            </div>
+            <div class="form-row mb-3">
               <div class="col-md-6 my-3">
                 <label for="id_{{ form.starttime.name }}">開始時間：</label>
                 {{ form.starttime }}
@@ -68,4 +75,9 @@
           </form>
         </div>
     </section>
+    <script>
+        $(document).ready(function (){
+            $("#id_land").select2();
+        });
+    </script>
 {% endblock %}

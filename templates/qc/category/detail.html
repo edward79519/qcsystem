@@ -33,13 +33,18 @@
                     <h5 class="font-weight-bold">地點：</h5>
                 </div>
                 <div class="col-2">
-                  <p>{{ cate.proj.loc_county }} - {{ cate.proj.loc_area }}</p>
+                  <p>{{ cate.proj.loc_county.name }} - {{ cate.proj.loc_area.name }}</p>
                 </div>
                 <div class="col-2">
                     <h5 class="font-weight-bold">地段地號：</h5>
                 </div>
-                <div class="col-2">
-                    <p></p>
+                <div class="col">
+                    <p>
+                        {% for land in cate.proj.land.all %}
+                            {{ land }},
+                        {% empty %}
+                        {% endfor %}
+                    </p>
                 </div>
             </div>
             <div class="row">

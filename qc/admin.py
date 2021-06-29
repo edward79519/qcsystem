@@ -28,7 +28,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 class SubCateSelectAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name')
+    list_display = ('id', 'cate', 'name')
 
 
 class TimingSelectAdmin(admin.ModelAdmin):

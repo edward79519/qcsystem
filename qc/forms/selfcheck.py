@@ -5,13 +5,14 @@ from qc.models import Project, Category, WorkList, Question, Choice, Task
 class ProjectAddForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ['sn', 'name', 'sponsor', 'loc_county', 'loc_area', 'starttime', 'endtime', 'editor', 'remark']
+        fields = ['sn', 'name', 'sponsor', 'loc_county', 'loc_area', 'land', 'starttime', 'endtime', 'editor', 'remark']
         widgets = {
             'sn': forms.TextInput(attrs={'class': 'form-control'}),
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'sponsor': forms.Select(attrs={'class': 'custom-select'}),
-            'loc_county': forms.TextInput(attrs={'class': 'form-control'}),
-            'loc_area': forms.TextInput(attrs={'class': 'form-control'}),
+            'loc_county': forms.Select(attrs={'class': 'custom-select'}),
+            'loc_area': forms.Select(attrs={'class': 'custom-select'}),
+            'land': forms.Select(attrs={'class': 'custom-select', 'multiple': 'multiple'}),
             'starttime': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'endtime': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'remark': forms.Textarea(attrs={'class': 'form-control'}),
@@ -22,12 +23,13 @@ class ProjectUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Project
-        fields = ['name', 'sponsor', 'loc_county', 'loc_area', 'starttime', 'endtime', 'remark']
+        fields = ['name', 'sponsor', 'loc_county', 'land', 'loc_area', 'starttime', 'endtime', 'remark']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'sponsor': forms.Select(attrs={'class': 'custom-select'}),
-            'loc_county': forms.TextInput(attrs={'class': 'form-control'}),
-            'loc_area': forms.TextInput(attrs={'class': 'form-control'}),
+            'loc_county': forms.Select(attrs={'class': 'custom-select'}),
+            'loc_area': forms.Select(attrs={'class': 'custom-select'}),
+            'land': forms.SelectMultiple(attrs={'class': 'custom-select'}),
             'starttime': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'endtime': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'remark': forms.Textarea(attrs={'class': 'form-control'}),

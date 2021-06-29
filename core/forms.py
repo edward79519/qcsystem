@@ -76,9 +76,9 @@ class UserUpdateForm(forms.ModelForm):
         model = User
         fields = ['first_name', 'last_name', 'email']
         widgets = {
-            'email': forms.EmailInput(attrs={'class': 'form-control'}),
-            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control my-3'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control my-3'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control my-3'}),
         }
         labels = {
             'email': 'E-mail',
@@ -93,9 +93,9 @@ class EmployeeUpdateForm(forms.ModelForm):
         model = Employee
         exclude = ['user']
         widgets = {
-            'tel': forms.TextInput(attrs={'class': 'form-control'}),
-            'ext': forms.TextInput(attrs={'class': 'form-control'}),
-            'department': forms.Select(attrs={'class': 'form-control'}),
+            'tel': forms.TextInput(attrs={'class': 'form-control my-3'}),
+            'ext': forms.TextInput(attrs={'class': 'form-control my-3'}),
+            'department': forms.Select(attrs={'class': 'form-control my-3'}),
         }
         labels = {
             'tel': '電話',

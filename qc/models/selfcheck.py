@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from .contractor import Contact
 from django.utils.translation import gettext_lazy as _
+from core.models import County, Area, Section, Land
 
 
 class SelfCheckBase(models.Model):
@@ -31,8 +32,21 @@ class SelfCheckBase(models.Model):
 class Project(SelfCheckBase):
     sn = models.CharField(max_length=4, unique=True)
     name = models.CharField(max_length=20)
-    loc_county = models.CharField(max_length=20)
-    loc_area = models.CharField(max_length=20)
+    loc_county = models.ForeignKey(
+        County,
+        on_delete=models.PROTECT,
+        blank=True,
+        null=True,
+    )
+    loc_area = models.ForeignKey(
+        Area,
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+    )
+    land = models.ManyToManyField(
+        Land,
+    )
 
     def __str__(self):
         return self.sn + '_' + self.name
