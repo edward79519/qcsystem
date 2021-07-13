@@ -1,6 +1,6 @@
 from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Project, Category, WorkList, Question, Choice, AnsSingle
+from .models import Project, Category, WorkList, Question, Choice, AnsSingle, SubCateSelect
 from .forms import (ProjectAddForm, ProjectUpdateForm, CateAddForm, CateUpdateForm, WorkListAddForm, WorkListUpdateForm,
                     QuestionAddForm, ChoiceAddForm, Task, TaskAddForm)
 from django.db import transaction, DatabaseError
@@ -21,7 +21,7 @@ def index(request):
 def proj_detail(request, proj_id):
     template = loader.get_template("qc/project/detail.html")
     proj = Project.objects.get(id=proj_id)
-    cate_list = Category.objects.filter(proj_id=proj_id)
+    cate_list = Category.objects.filter(proj_id=proj_id).order_by('name')
     context = {
         'proj': proj,
         'cate_list': cate_list,
@@ -75,6 +75,7 @@ def cate_detail(request, cate_id):
 def cate_add(request, proj_id):
     template = loader.get_template("qc/category/add.html")
     proj = Project.objects.get(id=proj_id)
+
     if request.method == 'POST':
         form = CateAddForm(request.POST)
         if form.is_valid():
@@ -160,6 +161,7 @@ def worklist_add(request, cate_id):
     cate = Category.objects.get(id=cate_id)
     if request.method == "POST":
         form = WorkListAddForm(request.POST)
+        form.fields['subcate'].queryset = SubCateSelect.objects.filter(cate__id=cate.name.id)
         if form.is_valid():
             try:
                 with transaction.atomic():
@@ -173,6 +175,7 @@ def worklist_add(request, cate_id):
         return HttpResponseRedirect("../")
     else:
         form = WorkListAddForm(request.POST)
+        form.fields['subcate'].queryset = SubCateSelect.objects.filter(cate__id=cate.name.id)
     context = {
         'cate': cate,
         'form': form,

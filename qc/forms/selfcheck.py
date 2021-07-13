@@ -12,7 +12,7 @@ class ProjectAddForm(forms.ModelForm):
             'sponsor': forms.Select(attrs={'class': 'custom-select'}),
             'loc_county': forms.Select(attrs={'class': 'custom-select'}),
             'loc_area': forms.Select(attrs={'class': 'custom-select'}),
-            'land': forms.Select(attrs={'class': 'custom-select', 'multiple': 'multiple'}),
+            'land': forms.SelectMultiple(attrs={'class': 'custom-select'}),
             'starttime': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'endtime': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'remark': forms.Textarea(attrs={'class': 'form-control'}),
@@ -42,7 +42,7 @@ class CateAddForm(forms.ModelForm):
         model = Category
         fields = ['proj', 'name', 'sponsor', 'starttime', 'endtime', 'remark', 'editor']
         widgets = {
-            'name': forms.Select(attrs={'class': 'custom-select'}),
+            'name': forms.Select(attrs={'class': 'form-control'}),
             'sponsor': forms.Select(attrs={'class': 'custom-select'}),
             'starttime': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'endtime': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
