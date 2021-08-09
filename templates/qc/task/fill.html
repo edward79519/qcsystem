@@ -97,6 +97,7 @@
                                            <option value="{{ choice.id }}">{{ choice.desc }}</option>
                                         {% endfor %}
                                         </select>
+                                    {% elif question.type == 1%}
                                     {% endif %}
                                     </div>
                                 </div>

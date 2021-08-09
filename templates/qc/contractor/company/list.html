@@ -1,0 +1,58 @@
+{% extends 'frame/base.html' %}
+
+{% block title %}Inaenergy{% endblock %}
+{% block content %}
+
+    <section id="title">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1 class="mt-5">廠商清單</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <a role="button" class="btn btn-primary my-3" href="" onclick="openwindow('{% url "Comp_Add_Jump" %}')">新增</a>
+                    <a role="button" class="btn btn-secondary my-3" href="{% url 'Contra_Index' %}">廠商聯絡人一覽</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="table-responsive-sm">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">統編</th>
+                                    <th scope="col">公司名稱</th>
+                                    <th scope="col">負責人</th>
+                                    <th scope="col">電話</th>
+                                    <th scope="col">地址</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for comp in comp_list %}
+                                <tr>
+                                    <td>{{ comp.cmpsn }}</td>
+                                    <td><a href="" onclick="openwindow('{% url "Comp_Detail" comp.id %}')">{{ comp.cmpname }}</a></td>
+                                    <td>{{ comp.cmpsponsor }}</td>
+                                    <td>{{ comp.cmptel }}</td>
+                                    <td>{{ comp.cmpaddr }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+  <script>
+      function openwindow (url) {
+          window.open(url,'','width=560, height=500, location=no, left=100, top=100');
+        }
+  </script>
+{% endblock %}

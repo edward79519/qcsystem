@@ -32,10 +32,12 @@
               <div class="col-md-6 my-1">
                 <label for="id_{{ form.subcate.name }}">類別：</label>
                 {{ form.subcate }}
+                <a href="#" onClick="openwindow('../selectlist')">新增類別</a>
               </div>
               <div class="col-md-6 my-1">
                 <label for="id_{{ form.timing.name }}">檢查時機：</label>
                 {{ form.timing }}
+                <a href="#" onClick="openwindow('{% url "Timing_List" %}')">新增檢查時機</a>
               </div>
             </div>
             <div class="form-row mb-3">
@@ -83,4 +85,9 @@
           </form>
         </div>
     </section>
+  <script>
+      function openwindow (url) {
+          window.open(url,'','width=560, height=500, location=no, left=100, top=100');
+      }
+  </script>
 {% endblock %}

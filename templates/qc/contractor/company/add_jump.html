@@ -1,0 +1,73 @@
+{% extends 'frame/nonavbase.html' %}
+
+{% block title %}Inaenergy{% endblock %}
+{% block content %}
+
+    <section id="title">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1 class="mt-5">新增公司</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="comp_add_form">
+        <div class="container">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6 my-1">
+                        <label for="id_{{ form.cmpname.name }}">公司名稱：</label>
+                        {{ form.cmpname }}
+                    </div>
+                    <div class="col-md-6 my-1">
+                        <label for="id_{{ form.cmpsn.name }}">公司統編：</label>
+                        {{ form.cmpsn }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 my-1">
+                        <label for="id_{{ form.cmpsponsor.name }}">負責人：</label>
+                        {{ form.cmpsponsor }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 my-1">
+                        <label for="id_{{ form.cmptel.name }}">電話：</label>
+                        {{ form.cmptel }}
+                    </div>
+                    <div class="col-md-6 my-1">
+                        <label for="id_{{ form.cmpfax.name }}">傳真：</label>
+                        {{ form.cmpfax }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 my-1">
+                        <label for="id_{{ form.cmpaddr.name }}">地址：</label>
+                        {{ form.cmpaddr }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 my-1">
+                        <label for="id_{{ form.remark.name }}">備註：</label>
+                        {{ form.remark }}
+                    </div>
+                </div>
+                <input type="hidden" name="editor" id="id_editor" value="{{ user.id }}">
+                <div class="row">
+                    <div class="col-lg-12 my-3">
+                        <input class="btn btn-outline-primary" type="reset" value="清除輸入">
+                        <button class="btn btn-primary" type="submit">儲存</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    <script language="javascript">
+        window.onbeforeunload = function () {
+            window.opener.location.reload();
+        };
+    </script>
+{% endblock %}

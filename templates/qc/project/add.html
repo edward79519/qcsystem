@@ -45,8 +45,10 @@
             </div>
             <div class="form-row mb-3">
               <div class="col-md-12 my-1">
-                <label for="id_{{ form.land.name }}">地段地號：</label>
-                {{ form.land }}
+                <div class="form-group">
+                  <label for="id_{{ form.land.name }}">地段地號：</label>
+                  {{ form.land }}
+                </div>
               </div>
             </div>
             <div class="form-row mb-3">
@@ -79,5 +81,13 @@
         $(document).ready(function (){
             $("#id_land").select2();
         });
+        $(document).on('change', '#id_loc_county', function () {
+            let id_county = $('#id_loc_county :selected').text().substr(0,1);
+            $("#id_loc_area option:selected").prop("selected", false)
+            $('#id_loc_area option').filter(function (){
+                $(this).toggle($(this).text().indexOf(id_county) > -1)
+            });
+        });
+
     </script>
 {% endblock %}

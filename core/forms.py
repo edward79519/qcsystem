@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from core.models import Employee
 from core.custom.land import get_county_choice
 
+
 class EmployeeCreationForm(UserCreationForm):
     password1 = forms.CharField(
         widget=forms.PasswordInput(

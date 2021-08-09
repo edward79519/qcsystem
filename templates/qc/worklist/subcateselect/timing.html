@@ -1,0 +1,64 @@
+{% extends 'frame/nonavbase.html' %}
+
+{% block title %}Inaenergy{% endblock %}
+{% block content %}
+
+    <section id="title">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1 class="mt-5">檢查時機一覽</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="catesel_list">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="table-responsive-sm">
+                        <table class="table table-hover text-center">
+                            <thead>
+                                <tr>
+                                    <th scope="col">項目</th>
+                                    <th scope="col">檢查時機</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for timing in timinglist %}
+                                <tr>
+                                    <td>{{ timing.id }}</td>
+                                    <td>{{ timing.name }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <form method="POST">
+                                        {% csrf_token %}
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <div class="input-group mb-3">
+                                                {{ form.name }}
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-primary" type="submit">新增</button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </form>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script language="javascript">
+        window.onbeforeunload = function () {
+            window.opener.location.reload();
+        };
+    </script>
+{% endblock %}

@@ -1,8 +1,10 @@
 from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Project, Category, WorkList, Question, Choice, AnsSingle, SubCateSelect
+from .models import Project, Category, WorkList, Question, Choice, AnsSingle, SubCateSelect, CategorySelectName, TimingSelect, Contact, Company
 from .forms import (ProjectAddForm, ProjectUpdateForm, CateAddForm, CateUpdateForm, WorkListAddForm, WorkListUpdateForm,
-                    QuestionAddForm, ChoiceAddForm, Task, TaskAddForm)
+                    QuestionAddForm, ChoiceAddForm, Task, TaskAddForm, CateSelectAddForm, SubCateSelectAddForm, TimingSelectAddForm,
+                    ContactAddForm, CompanyAddLessForm)
+
 from django.db import transaction, DatabaseError
 
 
@@ -56,6 +58,23 @@ def proj_update(request, proj_id):
         form = ProjectUpdateForm(instance=proj)
     context = {
         'proj': proj,
+        'form': form,
+    }
+    return HttpResponse(template.render(context, request))
+
+
+def cate_select_list(request):
+    template = loader.get_template("qc/category/selection/list.html")
+    cateslctlst = CategorySelectName.objects.all()
+    if request.method == "POST":
+        form = CateSelectAddForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return HttpResponseRedirect("./")
+    else:
+        form = CateSelectAddForm()
+    context = {
+        'cateslctlst': cateslctlst,
         'form': form,
     }
     return HttpResponse(template.render(context, request))
@@ -116,6 +135,27 @@ def cate_update(request, cate_id):
         form = CateUpdateForm(instance=cate)
     context = {
         'cate': cate,
+        'form': form,
+    }
+    return HttpResponse(template.render(context, request))
+
+
+def worklist_cate_select_add(request, cate_id):
+    template = loader.get_template("qc/worklist/subcateselect/list.html")
+    cate = Category.objects.get(id=cate_id)
+    subcatelst = SubCateSelect.objects.filter(cate_id=cate.name.id)
+    if request.method == "POST":
+        form = SubCateSelectAddForm(request.POST)
+        print(form)
+        if form.is_valid():
+            form.save()
+            print(form)
+        return HttpResponseRedirect('./')
+    else:
+        form = SubCateSelectAddForm()
+    context = {
+        'catenameid': cate.name.id,
+        'subcatelst': subcatelst,
         'form': form,
     }
     return HttpResponse(template.render(context, request))
@@ -291,3 +331,93 @@ def task_detail(request, task_id):
         'questions': questions,
     }
     return HttpResponse(template.render(context, request))
+
+
+def timing_list(request):
+    template = loader.get_template("qc/worklist/subcateselect/timing.html")
+    timinglist = TimingSelect.objects.all()
+    if request.method == "POST":
+        form = TimingSelectAddForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return HttpResponseRedirect("./")
+    else:
+        form = TimingSelectAddForm()
+    context = {
+        'timinglist': timinglist,
+        'form': form,
+    }
+    return HttpResponse(template.render(context, request))
+
+
+def contractor_index(request):
+    template = loader.get_template('qc/contractor/index.html')
+    contacts = Contact.objects.all()
+    context = {
+        'contacts': contacts,
+    }
+    return HttpResponse(template.render(context, request))
+
+
+def contact_add(request):
+    template = loader.get_template('qc/contractor/contact/add.html')
+    if request.method == "POST":
+        print(request.POST)
+        form = ContactAddForm(request.POST)
+        print(form.is_valid())
+        if form.is_valid():
+
+            form.save()
+            return HttpResponseRedirect('/qc/contractor/')
+        else:
+            return HttpResponseRedirect('./')
+    else:
+        form = ContactAddForm()
+    context = {
+        'form': form,
+    }
+    return HttpResponse(template.render(context, request))
+
+
+def contact_detail(request, cont_id):
+    contact = Contact.objects.get(id=cont_id)
+    template = loader.get_template("qc/contractor/contact/detail.html")
+    context = {
+        'contact': contact,
+    }
+    return HttpResponse(template.render(context, request))
+
+
+def comp_add_jump(request):
+    template = loader.get_template('qc/contractor/company/add_jump.html')
+    if request.method == "POST":
+        form = CompanyAddLessForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return HttpResponseRedirect("./")
+    else:
+        form = CompanyAddLessForm()
+    context = {
+        'form': form,
+    }
+    return HttpResponse(template.render(context, request))
+
+
+def comp_list(request):
+    template = loader.get_template('qc/contractor/company/list.html')
+    comp_list = Company.objects.all()
+    context = {
+        'comp_list': comp_list,
+    }
+    return HttpResponse(template.render(context, request))
+
+
+def comp_detail(request, cmp_id):
+    template = loader.get_template('qc/contractor/company/detail.html')
+    comp = Company.objects.get(id=cmp_id)
+    context = {
+        'comp': comp,
+    }
+    return HttpResponse(template.render(context, request))
+
+

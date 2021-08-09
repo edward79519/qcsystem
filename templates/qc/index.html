@@ -41,8 +41,8 @@
                                   <td><a href="{%  url 'Proj_Detail' proj.id %}">{{ proj.name }}</a></td>
                                   <td>{{ proj.loc_county }}{{ proj.loc_area }}</td>
                                   <td>{{ proj.sponsor.get_full_name }}</td>
-                                  <td>{{ proj.starttime }}</td>
-                                  <td>{{ proj.endtime }}</td>
+                                  <td>{{ proj.starttime|date:"Y-m-d" }}</td>
+                                  <td>{{ proj.endtime|date:"Y-m-d" }}</td>
                                   <td>N/A</td>
                                 </tr>
                               {% empty %}

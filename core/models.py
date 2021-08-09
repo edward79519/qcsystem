@@ -22,6 +22,9 @@ class County(models.Model):
     sn = models.CharField(max_length=1, unique=True)
     name = models.CharField(max_length=20)
 
+    class Meta:
+        ordering = ['sn']
+
     def __str__(self):
         return "{}_{}".format(self.sn, self.name)
 
@@ -40,6 +43,7 @@ class Area(models.Model):
 
     class Meta:
         unique_together = [['sn', 'county']]
+        ordering = ['sn']
 
 
 class Section(models.Model):

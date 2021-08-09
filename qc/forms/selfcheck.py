@@ -1,5 +1,5 @@
 from django import forms
-from qc.models import Project, Category, WorkList, Question, Choice, Task
+from qc.models import Project, Category, WorkList, Question, Choice, Task, CategorySelectName, SubCateSelect, TimingSelect
 
 
 class ProjectAddForm(forms.ModelForm):
@@ -12,7 +12,7 @@ class ProjectAddForm(forms.ModelForm):
             'sponsor': forms.Select(attrs={'class': 'custom-select'}),
             'loc_county': forms.Select(attrs={'class': 'custom-select'}),
             'loc_area': forms.Select(attrs={'class': 'custom-select'}),
-            'land': forms.SelectMultiple(attrs={'class': 'custom-select'}),
+            'land': forms.SelectMultiple(attrs={'class': 'form-control'}),
             'starttime': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'endtime': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'remark': forms.Textarea(attrs={'class': 'form-control'}),
@@ -139,3 +139,32 @@ class TaskAddForm(forms.ModelForm):
         }
 
 
+class CateSelectAddForm(forms.ModelForm):
+
+    class Meta:
+        model = CategorySelectName
+        fields = '__all__'
+        widgets = {
+            'sn': forms.TextInput(attrs={'class': 'form-control', 'pattern': '[A-Z]{0,1}[0-9]{2}'}),
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+
+class SubCateSelectAddForm(forms.ModelForm):
+
+    class Meta:
+        model = SubCateSelect
+        fields = '__all__'
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+
+class TimingSelectAddForm(forms.ModelForm):
+
+    class Meta:
+        model = TimingSelect
+        fields = '__all__'
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+        }

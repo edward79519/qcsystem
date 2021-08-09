@@ -1,0 +1,49 @@
+{% extends 'frame/nonavbase.html' %}
+
+{% block title %}Inaenergy{% endblock %}
+{% block content %}
+
+    <section id="title">
+        <div class="container my-3">
+            <div class="row">
+                <div class="col">
+                    <h1 class="mt-5">{{ contact.name }}</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="comp_add_form">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h3 class="my-3">基本資料</h3>
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <th scope="row" width="100px">公司</th>
+                                <td><a href="{% url 'Comp_Detail' contact.comp.id %}">{{ contact.comp.cmpname }}</a></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">主要電話</th>
+                                <td>{{ contact.telprim }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">次要電話</th>
+                                <td>{{ contact.telscnd }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">E-mail</th>
+                                <td>{{ contact.email }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">備註</th>
+                                <td>{{ contact.remark }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
